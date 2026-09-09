@@ -50,12 +50,12 @@ const depoimentos: Record<string, { produto: string; avatar: string }> = {
 };
 
 const slides = [
-  { src: mapaFundamentosAsset.url, alt: "Mapa mental Fundamentos da Educação" },
-  { src: mapaPsicologiaAsset.url, alt: "Mapa mental Psicologia da Educação" },
-  { src: mapaDidaticaAsset.url, alt: "Mapa mental Didática e Práticas Pedagógicas" },
-  { src: mapaLdbAsset.url, alt: "Mapa mental LDB e Legislação Educacional" },
-  { src: mapaBnccAsset.url, alt: "Mapa mental BNCC" },
-  { src: mapaDesenvolvimentoAsset.url, alt: "Mapa mental Desenvolvimento Infantil" },
+  { src: mapaFundamentos, alt: "Mapa mental Fundamentos da Educação" },
+  { src: mapaPsicologia, alt: "Mapa mental Psicologia da Educação" },
+  { src: mapaDidatica, alt: "Mapa mental Didática e Práticas Pedagógicas" },
+  { src: mapaLdb, alt: "Mapa mental LDB e Legislação Educacional" },
+  { src: mapaBncc, alt: "Mapa mental BNCC" },
+  { src: mapaDesenvolvimento, alt: "Mapa mental Desenvolvimento Infantil" },
 ];
 
 
