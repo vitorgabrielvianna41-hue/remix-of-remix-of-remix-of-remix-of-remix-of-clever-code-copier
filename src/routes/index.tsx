@@ -1,0 +1,211 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useRef } from "react";
+
+import landingHtml from "../../public/mapa.html?raw";
+import { CoverflowCarousel } from "@/components/ui/coverflow-carousel";
+import kitMockupAsset from "@/assets/kit-mockup-pedagogia.webp.asset.json";
+import mapaFundamentosAsset from "@/assets/mapa-fundamentos-educacao.png.asset.json";
+import mapaPsicologiaAsset from "@/assets/mapa-psicologia-educacao.png.asset.json";
+import mapaDidaticaAsset from "@/assets/mapa-didatica-praticas.png.asset.json";
+import mapaLdbAsset from "@/assets/mapa-ldb-legislacao.png.asset.json";
+import mapaBnccAsset from "@/assets/mapa-bncc.png.asset.json";
+import mapaDesenvolvimentoAsset from "@/assets/mapa-desenvolvimento-infantil.webp.asset.json";
+import depoimento1Asset from "@/assets/depoimento-novo-8.png.asset.json";
+import depoimento2Asset from "@/assets/depoimento-novo-7.png.asset.json";
+import depoimento3Asset from "@/assets/depoimento-novo-6.png.asset.json";
+import depoimento4Asset from "@/assets/depoimento-novo-9.png.asset.json";
+import depoimento10Asset from "@/assets/depoimento-novo-10.png.asset.json";
+
+import bonus1Asset from "@/assets/bonus-1.png.asset.json";
+import bonus2Asset from "@/assets/bonus-2.png.asset.json";
+import bonus3Asset from "@/assets/bonus-3.png.asset.json";
+import bonus4Asset from "@/assets/bonus-4.png.asset.json";
+import bonus5Asset from "@/assets/bonus-5.png.asset.json";
+import bonus6Asset from "@/assets/bonus-6.png.asset.json";
+import avatarRafael from "@/assets/avatar-rafael.webp";
+import avatar1 from "@/assets/avatar-1.jpg";
+import avatar2 from "@/assets/avatar-2.jpg";
+import avatar3 from "@/assets/avatar-3.jpg";
+import avatar4 from "@/assets/avatar-4.jpg";
+import avatar5 from "@/assets/avatar-5.jpg";
+
+const kitMockup = kitMockupAsset.url;
+const depoimento1 = depoimento1Asset.url;
+const depoimento2 = depoimento2Asset.url;
+const depoimento3 = depoimento3Asset.url;
+const depoimento4 = depoimento4Asset.url;
+const depoimento10 = depoimento10Asset.url;
+const mapas = [
+  mapaFundamentosAsset.url,
+  mapaPsicologiaAsset.url,
+  mapaDidaticaAsset.url,
+  mapaLdbAsset.url,
+  mapaBnccAsset.url,
+  mapaDesenvolvimentoAsset.url,
+];
+const bonusImgs = [
+  bonus1Asset.url,
+  bonus2Asset.url,
+  bonus3Asset.url,
+  bonus4Asset.url,
+  bonus5Asset.url,
+  bonus6Asset.url,
+];
+const avatars = [avatar1, avatar2, avatar3, avatar4, avatar5];
+
+// Cada depoimento tem sua própria foto de produto e seu próprio avatar,
+// pareados para que a foto combine com o que a pessoa fala.
+const depoimentos: Record<string, { produto: string; avatar: string }> = {
+  mariana: { produto: depoimento4, avatar: avatars[0]! },
+  camila: { produto: depoimento2, avatar: avatars[1]! },
+  beatriz: { produto: depoimento1, avatar: avatars[2]! },
+  patricia: { produto: depoimento10, avatar: avatars[3]! },
+};
+
+const slides = [
+  { src: mapaFundamentosAsset.url, alt: "Mapa mental Fundamentos da Educação" },
+  { src: mapaPsicologiaAsset.url, alt: "Mapa mental Psicologia da Educação" },
+  { src: mapaDidaticaAsset.url, alt: "Mapa mental Didática e Práticas Pedagógicas" },
+  { src: mapaLdbAsset.url, alt: "Mapa mental LDB e Legislação Educacional" },
+  { src: mapaBnccAsset.url, alt: "Mapa mental BNCC" },
+  { src: mapaDesenvolvimentoAsset.url, alt: "Mapa mental Desenvolvimento Infantil" },
+];
+
+
+function rewriteAssets(html: string) {
+  return html
+    // carregamento leve: imagens só quando aparecem na tela
+    .replace(/<img(?![^>]*\bloading=)/gi, '<img loading="lazy" decoding="async"')
+    .replace(/\/assets\/kit_mockup_v2\.webp/g, kitMockup)
+    .replace(/\/assets\/mapa_preview_(\d)\.webp/g, (_m, n) => mapas[(Number(n) - 1) % mapas.length]!)
+    .replace(/\/assets\/bonus_(\d)\.webp/g, (_m, n) => bonusImgs[(Number(n) - 1) % bonusImgs.length]!)
+    .replace(
+      /\/assets\/depoimento_(\w+)_produto\.webp/g,
+      (_m, name: string) => depoimentos[name]?.produto ?? depoimento1,
+    )
+    .replace(
+      /\/assets\/depoimento_(\w+)_avatar\.webp/g,
+      (_m, name: string) => depoimentos[name]?.avatar ?? avatars[0]!,
+    )
+    .replace(
+      /\/assets\/hero_avatar_(\d)\.webp/g,
+      (_m, idx: string) => avatars[(Number(idx) - 1) % avatars.length]!,
+    );
+}
+
+
+const rawBody = (landingHtml.match(/<body[^>]*>([\s\S]*)<\/body>/i)?.[1] ?? "")
+  .replace(/<script[\s\S]*?<\/script>/gi, "")
+  .trim();
+
+// The dark "preview" section is replaced by the React coverflow carousel.
+const previewSection = /<section class="section section--dark">[\s\S]*?<\/section>/i;
+const match = rawBody.match(previewSection);
+const splitIndex = match ? (match.index ?? 0) : rawBody.length;
+
+const beforeHtml = rewriteAssets(rawBody.slice(0, splitIndex));
+const afterHtml = rewriteAssets(rawBody.slice(splitIndex + (match?.[0].length ?? 0)));
+
+export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Kit de Pedagogia Visual — +300 Mapas Mentais Imprimíveis" },
+      {
+        name: "description",
+        content:
+          "Estude pedagogia de forma visual com mais de 300 mapas mentais imprimíveis. Da história da educação à prática docente, revise rápido para provas e concursos.",
+      },
+      { property: "og:title", content: "Kit de Pedagogia Visual — +300 Mapas Mentais" },
+      {
+        property: "og:description",
+        content:
+          "Mais de 300 mapas mentais ilustrados de pedagogia: fundamentos, teorias de aprendizagem, didática, inclusão, legislação e gestão escolar. Acesso vitalício.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Sora:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap",
+      },
+      { rel: "stylesheet", href: "/style.css" },
+    ],
+  }),
+  component: Index,
+});
+
+function useLandingScript() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const root = containerRef.current;
+    if (!root) return;
+    let cleanup: (() => void) | undefined;
+
+    const run = () => {
+      const init = (window as unknown as { initLanding?: (r: ParentNode) => (() => void) | void })
+        .initLanding;
+      if (init) cleanup = init(document) || undefined;
+    };
+
+    (window as unknown as { __LANDING_MANUAL_INIT__?: boolean }).__LANDING_MANUAL_INIT__ = true;
+
+    if ((window as unknown as { initLanding?: unknown }).initLanding) {
+      run();
+    } else {
+      const script = document.createElement("script");
+      script.src = "/script.js";
+      script.onload = run;
+      document.body.appendChild(script);
+    }
+
+    return () => cleanup?.();
+  }, []);
+
+  return containerRef;
+}
+
+function Index() {
+  const containerRef = useLandingScript();
+
+  return (
+    <div ref={containerRef}>
+      <div dangerouslySetInnerHTML={{ __html: beforeHtml }} />
+
+      <section className="section section--dark">
+        <div className="container">
+          <span className="section-label">O Material por Dentro</span>
+          <h2 className="section-title" style={{ color: "#ffffff" }}>
+            Veja como o material é por dentro
+          </h2>
+          <p className="section-subtitle">
+            Mapas ilustrados e organizados por disciplina para facilitar seus estudos e revisões
+            rápidas. Arraste para explorar.
+          </p>
+
+          <CoverflowCarousel
+            slides={slides}
+            cardWidth="clamp(230px, 68vw, 320px)"
+            cardAspect={1}
+            className="text-white"
+            cardClassName="bg-white p-1"
+            showNavigation
+            showPagination
+            label="Prévia dos mapas mentais"
+          />
+
+          <div style={{ textAlign: "center", marginTop: 40 }}>
+            <a href="#value-stack-section" className="btn-cta">
+              Quero Garantir Agora
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <div dangerouslySetInnerHTML={{ __html: afterHtml }} />
+    </div>
+  );
+}
