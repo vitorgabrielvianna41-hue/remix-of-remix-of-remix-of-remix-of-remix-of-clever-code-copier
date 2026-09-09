@@ -3,25 +3,25 @@ import { useEffect, useRef } from "react";
 
 import landingHtml from "../../public/mapa.html?raw";
 import { CoverflowCarousel } from "@/components/ui/coverflow-carousel";
-import kitMockupAsset from "@/assets/kit-mockup-pedagogia.webp.asset.json";
-import mapaFundamentosAsset from "@/assets/mapa-fundamentos-educacao.png.asset.json";
-import mapaPsicologiaAsset from "@/assets/mapa-psicologia-educacao.png.asset.json";
-import mapaDidaticaAsset from "@/assets/mapa-didatica-praticas.png.asset.json";
-import mapaLdbAsset from "@/assets/mapa-ldb-legislacao.png.asset.json";
-import mapaBnccAsset from "@/assets/mapa-bncc.png.asset.json";
-import mapaDesenvolvimentoAsset from "@/assets/mapa-desenvolvimento-infantil.webp.asset.json";
-import depoimento1Asset from "@/assets/depoimento-novo-8.png.asset.json";
-import depoimento2Asset from "@/assets/depoimento-novo-7.png.asset.json";
-import depoimento3Asset from "@/assets/depoimento-novo-6.png.asset.json";
-import depoimento4Asset from "@/assets/depoimento-novo-9.png.asset.json";
-import depoimento10Asset from "@/assets/depoimento-novo-10.png.asset.json";
+import kitMockup from "@/assets/optimized/kit-mockup-pedagogia.webp";
+import mapaFundamentos from "@/assets/optimized/mapa-fundamentos-educacao.webp";
+import mapaPsicologia from "@/assets/optimized/mapa-psicologia-educacao.webp";
+import mapaDidatica from "@/assets/optimized/mapa-didatica-praticas.webp";
+import mapaLdb from "@/assets/optimized/mapa-ldb-legislacao.webp";
+import mapaBncc from "@/assets/optimized/mapa-bncc.webp";
+import mapaDesenvolvimento from "@/assets/optimized/mapa-desenvolvimento-infantil.webp";
+import depoimento1 from "@/assets/optimized/depoimento-novo-8.webp";
+import depoimento2 from "@/assets/optimized/depoimento-novo-7.webp";
+import depoimento3 from "@/assets/optimized/depoimento-novo-6.webp";
+import depoimento4 from "@/assets/optimized/depoimento-novo-9.webp";
+import depoimento10 from "@/assets/optimized/depoimento-novo-10.webp";
 
-import bonus1Asset from "@/assets/bonus-1.png.asset.json";
-import bonus2Asset from "@/assets/bonus-2.png.asset.json";
-import bonus3Asset from "@/assets/bonus-3.png.asset.json";
-import bonus4Asset from "@/assets/bonus-4.png.asset.json";
-import bonus5Asset from "@/assets/bonus-5.png.asset.json";
-import bonus6Asset from "@/assets/bonus-6.png.asset.json";
+import bonus1 from "@/assets/optimized/bonus-1.webp";
+import bonus2 from "@/assets/optimized/bonus-2.webp";
+import bonus3 from "@/assets/optimized/bonus-3.webp";
+import bonus4 from "@/assets/optimized/bonus-4.webp";
+import bonus5 from "@/assets/optimized/bonus-5.webp";
+import bonus6 from "@/assets/optimized/bonus-6.webp";
 import avatarRafael from "@/assets/avatar-rafael.webp";
 import avatar1 from "@/assets/avatar-1.jpg";
 import avatar2 from "@/assets/avatar-2.jpg";
@@ -29,28 +29,15 @@ import avatar3 from "@/assets/avatar-3.jpg";
 import avatar4 from "@/assets/avatar-4.jpg";
 import avatar5 from "@/assets/avatar-5.jpg";
 
-const kitMockup = kitMockupAsset.url;
-const depoimento1 = depoimento1Asset.url;
-const depoimento2 = depoimento2Asset.url;
-const depoimento3 = depoimento3Asset.url;
-const depoimento4 = depoimento4Asset.url;
-const depoimento10 = depoimento10Asset.url;
 const mapas = [
-  mapaFundamentosAsset.url,
-  mapaPsicologiaAsset.url,
-  mapaDidaticaAsset.url,
-  mapaLdbAsset.url,
-  mapaBnccAsset.url,
-  mapaDesenvolvimentoAsset.url,
+  mapaFundamentos,
+  mapaPsicologia,
+  mapaDidatica,
+  mapaLdb,
+  mapaBncc,
+  mapaDesenvolvimento,
 ];
-const bonusImgs = [
-  bonus1Asset.url,
-  bonus2Asset.url,
-  bonus3Asset.url,
-  bonus4Asset.url,
-  bonus5Asset.url,
-  bonus6Asset.url,
-];
+const bonusImgs = [bonus1, bonus2, bonus3, bonus4, bonus5, bonus6];
 const avatars = [avatar1, avatar2, avatar3, avatar4, avatar5];
 
 // Cada depoimento tem sua própria foto de produto e seu próprio avatar,
