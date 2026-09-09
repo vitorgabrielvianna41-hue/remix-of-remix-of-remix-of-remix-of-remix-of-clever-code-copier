@@ -5,3 +5,5 @@
 - [x] Replace kit mockup with anexo 7 (image-2.webp)
 - [x] Verify preview renders correctly
 - [x] Point "Quero Adquirir Agora" buttons to checkout link https://pay.wiapy.com/6aa1dfb7b0c1c48195cf03a2
+- [x] Add new Pixel + UTM tracking scripts
+- [x] Lighten page for mobile: compressed all images (~40MB → ~2MB), kept lazy loading
