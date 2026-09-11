@@ -9,6 +9,7 @@ import mapaPsicologia from "@/assets/optimized/mapa-psicologia-educacao.webp";
 import mapaDidatica from "@/assets/optimized/mapa-didatica-praticas.webp";
 import mapaLdb from "@/assets/optimized/mapa-ldb-legislacao.webp";
 import mapaBncc from "@/assets/optimized/mapa-bncc.webp";
+import mapaDesenvolvimento from "@/assets/optimized/mapa-desenvolvimento-infantil.webp";
 import depoimento1 from "@/assets/optimized/depoimento-novo-8.webp";
 import depoimento2 from "@/assets/optimized/depoimento-novo-7.webp";
 import depoimento3 from "@/assets/optimized/depoimento-novo-6.webp";
@@ -53,6 +54,7 @@ const slides = [
   { src: mapaDidatica, alt: "Mapa mental Didática e Práticas Pedagógicas" },
   { src: mapaLdb, alt: "Mapa mental LDB e Legislação Educacional" },
   { src: mapaBncc, alt: "Mapa mental BNCC" },
+  { src: mapaDesenvolvimento, alt: "Mapa mental Desenvolvimento Infantil" },
 ];
 
 
